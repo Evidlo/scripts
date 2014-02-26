@@ -1,0 +1,13 @@
+#!/bin/bash
+#Evan Widloski - 2014-02-25 - evan@evanw.org
+#Tool for Purdue students to scrape Resnet bandwidth usage (must be connected from resnet)
+
+stats_page=$(curl -s https://my.resnet.purdue.edu/mystats)
+bandwidth_down=$(echo $stats_page|sed -r "s/.*Downloaded\s([0-9]+\.?[0-9]*).*/\1/")
+bandwidth_up=$(echo $stats_page|sed -r "s/.*Uploaded\s([0-9]+\.?[0-9]*).*/\1/")
+if [ -n "$bandwidth_up" -a -n "$bandwidth_down" ]
+    then
+       echo "$(echo "$bandwidth_down+$bandwidth_up"|bc)GB"
+    else
+       echo "Not Connected!"
+fi

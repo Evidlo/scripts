@@ -1,0 +1,25 @@
+#!/bin/bash
+#Evan Widloski - 2014-02-05 - nslookup batch tool
+#A tool to check several TLD's for a given hostname
+
+if [ "$1" == "--help" ]
+then	
+	echo "Usage:  hostname_check example"
+	echo "Usage:  hostname_check example.com"
+	exit
+fi
+
+TLDS=(".org" ".net" ".io" ".biz" ".com" ".co" ".info" ".me" ".pw" ".us" ".de" ".eu" ".cc" ".fr" ".ch" ".bg" ".xxx" ".nu" ".li" ".in" ".ws" ".co.uk")
+
+host_length=$((${#1}+10))
+
+printf "%-${host_length}s::%-s\n" "Domain" "IP"
+echo "###########################################"
+
+for TLD in ${TLDS[@]}
+do
+	printf "%-${host_length}s" "${1}${TLD}"
+	printf "::%-s  " $(nslookup "${1}${TLD}"|awk '/Address/{if (match(last,"Name")){print $2}};{last=$0}')
+	printf "\n"
+done
+	
