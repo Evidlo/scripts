@@ -1,0 +1,16 @@
++ /home
+- /home/evan/VirtualBox*
+- /home/evan/.*
+- /home/evan/Dropbox
+- /home/evan/Downloads
+- /home/evan/code/cpp/opencv
+- /home/evan/pictures
+- /home/evan/downloads
+- /home/evan/git
+- /home/evan/resources
+- /home/evan/rpmbuild
++ /etc
++ /srv
++ /var/www
+- /mnt/windows/Users/Evan
+- /*

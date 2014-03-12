@@ -1,0 +1,4 @@
+#!/bin/bash
+exclude_args=$(IFS=" ";cat filter.txt|sed -re 's/ /\n/g'|awk '/\+/{last="include"} /-/{last="exclude"} /[^-+]/{command=command " --" last "=" "\x27" $0 "\x27"} END {print command}')
+
+eval "rsync -n -ahrv $exclude_args / /tmp"
