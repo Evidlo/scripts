@@ -1,4 +1,25 @@
 #!/bin/bash
-exclude_args=$(IFS=" ";cat filter.txt|sed -re 's/ /\n/g'|awk '/\+/{last="include"} /-/{last="exclude"} /[^-+]/{command=command " --" last "=" "\x27" $0 "\x27"} END {print command}')
+exclude_args=$(awk '
+{
+	if($1 == "-"){
+		command=command " --exclude=\x27" $0 "\x27"
+	}
+	if($1 == "+"){
+		split($2,dirs,"/")
+		for(iter=2;iter<=length(dirs);iter++){
+			rule = " --include=\x27"
+			for(dir=2;dir<=iter;dir++){
+				rule = rule "/" dirs[dir]
+			}
+			rule = rule "\x27"
+			command = command rule
+		}
+	}
+}
+END{
+	print command
+}
+'< filter.txt)
 
-eval "rsync -n -ahrv $exclude_args / /tmp"
+
+eval "rsync -athvrpgoD -e ssh $exclude_args / evan@p.evanw.org:/home/evan/backup"

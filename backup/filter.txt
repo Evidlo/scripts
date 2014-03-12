@@ -1,4 +1,5 @@
-+ /home
+- /home/evan/blackbox*.tar.gz
+- /home/evan/documents.tar.gz
 - /home/evan/VirtualBox*
 - /home/evan/.*
 - /home/evan/Dropbox
@@ -9,8 +10,9 @@
 - /home/evan/git
 - /home/evan/resources
 - /home/evan/rpmbuild
-+ /etc
-+ /srv
-+ /var/www
++ /home/evan**
++ /etc**
++ /srv**
++ /var/www**
 - /mnt/windows/Users/Evan
-- /*
+- *
