@@ -1,0 +1,24 @@
+#!/bin/bash
+stations=("WBAA-AM" "WBAA-FM" "WUOT - Public Radio (Knoxville)" "WDVX - Bluegrass (Knoxville)")
+station_urls=("http://radio.evanw.org/wbaa-am.m3u" "http://radio.evanw.org/wbaa-fm.m3u" "http://radio.evanw.org/wuot.m3u" "http://nyc01.egihosting.com:8962/listen.pls")
+
+printf "Selection a station:\n"
+
+#find biggest string
+max=0
+IFS=""
+for i in ${stations[@]}
+do
+	if [ "${#i}" -gt "$max" ]
+	then
+		max=${#i}
+	fi
+done
+for((i=0;i<$((${#stations[@]}-(${#stations[@]}/2)));i++))
+do
+	printf "%-$((10+$max))s %-$((10+$max))s\n" "$((2*$i+1))) ${stations[$((2*$i))]}" "$((2*$i+2))) ${stations[$((2*$i+1))]}"
+done
+
+read -n 1 station
+
+mplayer -playlist ${station_urls[$((${station}-1))]}
