@@ -1,0 +1,8 @@
+#!/bin/bash
+printf "$(date "+%Y-%m-%d_%H:%M")\n">>/home/evan/logs/usage.log
+
+lid_state=$(cat /proc/acpi/button/lid/LID/state|awk '{print $2}')
+if [ "$lid_state" = "closed" ]
+then
+	pm-suspend
+fi
