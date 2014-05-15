@@ -119,6 +119,7 @@ def dumpLog(data):
 
 def dayHist(data):
 	weekdays = [[0.0] * 24] * 7
+	num_entries = [0] * 7
 	days = getMins(data)
 
 	days_diff = datetime.strptime(data[len(data) - 1][0],'%Y-%m-%d_%H:%M') - datetime.strptime(data[0][0],'%Y-%m-%d_%H:%M')
@@ -127,10 +128,11 @@ def dayHist(data):
 	for day in days:
 		weekday = int(day[-1].strftime('%w'))
 		weekdays[weekday] = [current + added for current,added in zip(weekdays[weekday],day[:-1])]
-
-	for weekday in range(1,len(weekdays)):
-		for val in range(1,len(weekdays[weekday])):
-			weekdays[weekday][val] /= total_days
+		num_entries[weekday] +=1
+	
+	for weekday in range(0,len(weekdays)):
+		for val in range(0,len(weekdays[weekday])):
+			weekdays[weekday][val] /= num_entries[weekday] 
 	
 	for weekday in weekdays:
 		for val in weekday:
