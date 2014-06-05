@@ -1,0 +1,10 @@
+#!/bin/bash
+printf "$(date "+%Y-%m-%d_%H:%M") ">>/home/evan/logs/usage.log
+
+batt_state=$(echo $(acpi -b)|awk '{print $3}')
+if [ "$batt_state" = "Discharging," ]
+then
+	/home/evan/bin/power_management/power_disconnect
+else
+	/home/evan/bin/power_management/power_connect
+fi
