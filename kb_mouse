@@ -1,0 +1,5 @@
+setxkbmap -layout us
+xmodmap -e 'remove lock = Caps_Lock'
+xmodmap -e 'keycode 0x42 = Hyper_L'
+xmodmap -e 'remove mod4 = Hyper_L'
+xmodmap -e 'add mod3 = Hyper_L'
