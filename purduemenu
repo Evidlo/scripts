@@ -2,22 +2,13 @@
 #Evan Widloski - 2013 - Purdue Menu Grabber
 
 import urllib
-from lxml import objectify
 import simplejson
-import time
 import sys
 import re
-
-def getItems(court_meal,bar_in): #Grab menu items from a specific dining court + meal
-  items=[]
-  for bar in court_meal:
-    if bar["Name"] == bar_in:
-      for item in bar["Items"]:
-        items.append(item["Name"])
-  return items
+from datetime import datetime,timedelta
 
 #General help and usage
-def diningHelp():
+def foodHelp():
   dining_courts=["earhart","ford","hillenbrand","wiley","windsor"]
   print "Usage: purdue_menu COURT BAR1 [BAR2] ..."
   print "To get a list of bars: purdue_menu COURT -h\n"
@@ -26,63 +17,70 @@ def diningHelp():
   print "Available dining courts: ",
   for dining_court in dining_courts:
     print dining_court+", ",
- 
-#Get all bars available at a dining court 
-def getBars(dining_court_obj):
-  bars=[]
-  for bar in dining_court_obj.Lunch.getchildren():
-    bars.append(bar)
-  return bars
-
-#Print out list of bars at a dining court
-def barHelp(j):
-  print "Available bars: ",
-  for bar in j["Lunch"]:
-    print bar["Name"]+", ",
 
 def main():
-#Print help if not enough arguments or -h is specified
-  if len(sys.argv) < 2 or re.search("-h","".join(sys.argv)):
-      diningHelp()
-      sys.exit(0)
+	acceptable_courts = ["hillenbrand","ford","wiley","earhart","windsor"]
+	acceptable_mealtimes = ["Lunch","Dinner","Breakfast"]
+	acceptable_days = {'sunday':6,'monday':0,'tuesday':1,'wednesday':2,'thursday':3,'friday':4,'saturday':5}
 
-#Get dining court from user input
-  dining_court = sys.argv[1]
+	params = sys.argv
 
-#Connect to API and read in JSON data for a specific dining court and day
-  url="http://api.hfs.purdue.edu/menus/v1/locations/"+dining_court+"/"+time.strftime("%m-%d-%Y")
-  data = urllib.urlopen(url)
-  j = simplejson.load(data)
+	if len(params) < 2 or 'help' in params or '-h' in params:
+		foodHelp('')
+		return
 
-#If no bar specified, print out list of bars at this dining court
-  if len(sys.argv) < 3:
-    barHelp(j)
-    sys.exit(0)
+	court = None
+	meal = None
+	day = None
 
-#Put all user-specified bars into an array  
-  bars_param = sys.argv[2:len(sys.argv)]
-#If user specifies all bars, get all bars
-  if bars_param[0] == "*":
-    bars_param=[]
-    bars = getBars(j)
-    for bar in bars:
-      bars_param.append(bar["Name"])
+	#grab the interesting bits of the arguments
+	for param in params:
+		if param.lower() in acceptable_courts:
+			court = param.lower()
+		if param.title() in acceptable_mealtimes:
+			meal = param.title()
+		if re.search('[0-9]{4}-[0-9]{2}-[0-9]{2}',param.lower()):
+			day = datetime.strptime(param,'%Y-%m-%d')
+		#handles optional weekday input
+		if param.lower() in acceptable_days.keys():
+			day = datetime.now()
+			one_day = timedelta(days = 1)
+			while day.weekday() != acceptable_days[param.lower()]:
+					day += one_day
 
+	#logic for dealing with missing input
+	if not court:
+		foodHelp('You must specify a dining court.')
+		return
+	#try to guess what mealtime user is interested in
+	if not day:
+		time = datetime.now()
+		day = time
+		if not meal:
+			time = datetime.now()
+			hour = int(time.strftime('%H'))
+			print hour
+			if hour > 19:
+				meal = 'Breakfast'
+			elif hour > 14:
+				meal = 'Dinner'
+			elif hour > 10:
+				meal = 'Lunch'
+			else:
+				meal = 'Breakfast' 
+	else:
+		if not meal:
+			foodHelp('You must specify a meal when you specify a day.')
 
-#Calculate meal by using the current time
-  hour = int(time.strftime("%H"))
-  if hour > 16:
-    meal = j["Dinner"]
-  else:
-    meal = j["Lunch"]
+	url = "http://api.hfs.purdue.edu/menus/v1/locations/"+court+"/"+day.strftime("%m-%d-%Y")
+	json = simplejson.load(urllib.urlopen(url))
 
-  menus=[]
-  for bar_param in bars_param:
-    menus.append(getItems(meal,bar_param))
-
-  for menu in menus:
-    for item in menu[:3]:
-      print item+", ",
+	#grab first 3 items from every bar
+	items = [item["Name"] for bar in json[meal] for item in bar["Items"][:3]]
+	if not items:
+		items = ['Not Serving']
+	message = court.title() + ' ' + meal.title() + ': ' + ', '.join(items[:10])
+	print message
 
 if __name__ == "__main__":
   main()
