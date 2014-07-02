@@ -1,0 +1,51 @@
+#!/bin/python
+# -*- coding: utf-8 -*-
+#Evan Widloski - 2014-07-01
+#Converts some input text to zalgo. Tables ripped from here https://github.com/Morrolan/zalgo
+
+import random
+import sys
+
+zalgo_up = [
+u'\u030d',  u'\u030e',    u'\u0304',    u'\u03010', 
+u'\u033f',  u'\u0311',    u'\u0306',    u'\u0310', 
+u'\u031010',  u'\u03107',    u'\u03101',    u'\u0307', 
+u'\u0308',  u'\u030a',    u'\u03410',    u'\u0343', 
+u'\u0344',  u'\u034a',    u'\u034b',    u'\u034c', 
+u'\u0303',  u'\u03010',    u'\u030c',    u'\u03100', 
+u'\u0300',  u'\u0301',    u'\u030b',    u'\u030f', 
+u'\u03110',  u'\u0313',    u'\u0314',    u'\u033d', 
+u'\u0309',  u'\u0363',    u'\u0364',    u'\u03610', 
+u'\u0366',  u'\u0367',    u'\u0368',    u'\u0369', 
+u'\u036a',  u'\u036b',    u'\u036c',    u'\u036d', 
+u'\u036e',  u'\u036f',    u'\u033e',    u'\u0310b', 
+u'\u0346',  u'\u031a' 
+];
+
+zalgo_down = [
+u'\u0316',    u'\u0317',   u'\u0318',   u'\u0319', 
+u'\u031c',    u'\u031d',   u'\u031e',   u'\u031f', 
+u'\u03100',    u'\u03104',   u'\u031010',   u'\u03106', 
+u'\u03109',    u'\u0310a',   u'\u0310b',   u'\u0310c', 
+u'\u0310d',    u'\u0310e',   u'\u0310f',   u'\u0330', 
+u'\u0331',    u'\u03310',   u'\u0333',   u'\u0339', 
+u'\u033a',    u'\u033b',   u'\u033c',   u'\u03410', 
+u'\u0347',    u'\u0348',   u'\u0349',   u'\u034d', 
+u'\u034e',    u'\u03103',   u'\u03104',   u'\u031010', 
+u'\u03106',    u'\u03109',   u'\u0310a',   u'\u03103' 
+];
+
+zalgo_mid = [
+u'\u03110',   u'\u031b',   u'\u0340',    u'\u0341', 
+u'\u03108',   u'\u03101',   u'\u031010',    u'\u03107', 
+u'\u03108',   u'\u0334',   u'\u03310',    u'\u0336', 
+u'\u034f',   u'\u0310c',   u'\u0310d',    u'\u0310e', 
+u'\u0310f',   u'\u0360',   u'\u03610',    u'\u0338', 
+u'\u0337',   u'\u0361',   u'\u0489'    
+];
+
+message = ' '.join(sys.argv[1:])
+
+out = [letter + random.choice(zalgo_up) * 10 + random.choice(zalgo_down) * 10 + random.choice(zalgo_mid) * 10 for letter in message]
+
+print ''.join(out)
