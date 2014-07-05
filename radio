@@ -1,6 +1,6 @@
 #!/bin/bash
-stations=("WBAA-AM" "WBAA-FM" "WUOT - Public Radio (Knoxville)" "WDVX - Bluegrass (Knoxville)")
-station_urls=("http://radio.evanw.org/wbaa-am.m3u" "http://radio.evanw.org/wbaa-fm.m3u" "http://radio.evanw.org/wuot.m3u" "http://nyc01.egihosting.com:8962/listen.pls")
+stations=("WBAA-AM" "WBAA-FM" "WUOT - Public Radio (Knoxville)" "WDVX - Bluegrass (Knoxville)" "WJEF")
+station_urls=("http://evanw.org:8000/wbaa-am.m3u" "http://evanw.org:8000/wbaa-fm.m3u" "http://evanw.org:8000/wuot.m3u" "http://nyc01.egihosting.com:8962/listen.pls" "http://majestic.wavestreamer.com:5337/listen.pls")
 
 printf "Selection a station:\n"
 
