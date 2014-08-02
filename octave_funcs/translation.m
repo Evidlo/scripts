@@ -9,6 +9,7 @@ function translate=translation(v)
 	translation = v;
 	%delete pivot cols from matrix
 	translation(:,pivot_cols')=[];
+	translation = -1.*translation(:,1:end);
 
 
 endfunction
