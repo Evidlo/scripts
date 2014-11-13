@@ -1,6 +1,8 @@
 #!/usr/bin/python
 #Evan Widloski
-#simulates an arbitrary number of n length shift registers where the output of the first and last flipflop of one shift register are connected to the clock and serial pins of the next shift register 
+#simulates an arbitrary number of n length shift registers where the output of the first and last flipflop
+#of one shift register are connected to the clock and serial pins of the next shift register
+#Example: http://imgur.com/weGoXfm
 
 shift_registers=3
 bits=4
