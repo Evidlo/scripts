@@ -1,0 +1,11 @@
+#!/bin/bash
+#Evan Widloski 2014-11-13
+#compress and tar backup folder, then move tar to external HD
+
+backupdir=/home/evan/backup
+archivedir=/mnt/EXTERNAL/Backups
+
+tarname="$(date +%Y-%m-%d).tar.gz"
+tar czvf $tarname $backupdir
+mv $tarname $archivedir
+rm -rf $backupdir
