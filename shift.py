@@ -1,6 +1,8 @@
 #!/usr/bin/python
 #Evan Widloski
-#simulates an arbitrary number of n length shift registers where the output of the first and last flipflop of one shift register are connected to the clock and serial pins of the next shift register 
+#simulates an arbitrary number of n length shift registers where the output of the first and last flipflop
+#of one shift register are connected to the clock and serial pins of the next shift register
+#Example: http://imgur.com/weGoXfm
 
 shift_registers=3
 bits=4
@@ -20,7 +22,7 @@ def shift(bit,register):
 	reg_array[register][0]=bit
 
 
-	#if clock rising edge (first two) and serial
+	#if clock rising edge detected(check first two bits) and last bit is 1
 	if not reg_array[register][1] and reg_array[register][0] and reg_array[register][-1]:
 		#are we already at the last shift register?
 		#if not, shift output to next register
@@ -30,6 +32,7 @@ def shift(bit,register):
 		else:
 			print 'one'
 
+	#same thing as above, but for last bit as 0
 	if not reg_array[register][1] and reg_array[register][0] and not reg_array[register][-1]:
 		if register + 1 < shift_registers:
 			shift(0,register + 1)
