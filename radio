@@ -1,24 +1,34 @@
 #!/bin/bash
-stations=("WBAA-AM" "WBAA-FM" "WUOT - Public Radio (Knoxville)" "WDVX - Bluegrass (Knoxville)" "WJEF")
+station_name=("WBAA-AM" "WBAA-FM" "WUOT - Public Radio (Knoxville)" "WDVX - Bluegrass (Knoxville)" "WJEF")
 station_urls=("http://evanw.org:8000/wbaa-am.m3u" "http://evanw.org:8000/wbaa-fm.m3u" "http://evanw.org:8000/wuot.m3u" "http://nyc01.egihosting.com:8962/listen.pls" "http://majestic.wavestreamer.com:5337/listen.pls")
+file_name=("BBC World News")
+file_urls=("$(curl -s http://downloads.bbc.co.uk/podcasts/worldservice/newshour/rss.xml|grep -Po "http://[^:\"]+\.mp3"|head -1)")
+
+combined_name=("${station_name[@]}" "${file_name[@]}")
+combined_urls=("${station_urls[@]}" "${file_urls[@]}")
 
 printf "Selection a station:\n"
 
 #find biggest string
 max=0
 IFS=""
-for i in ${stations[@]}
+for i in ${combined_name[@]}
 do
 	if [ "${#i}" -gt "$max" ]
 	then
 		max=${#i}
 	fi
 done
-for((i=0;i<$((${#stations[@]}-(${#stations[@]}/2)));i++))
+for((i=0;i<$((${#combined_name[@]}-(${#combined_name[@]}/2)));i++))
 do
-	printf "%-$((10+$max))s %-$((10+$max))s\n" "$((2*$i+1))) ${stations[$((2*$i))]}" "$((2*$i+2))) ${stations[$((2*$i+1))]}"
+	printf "%-$((10+$max))s %-$((10+$max))s\n" "$((2*$i+1))) ${combined_name[$((2*$i))]}" "$((2*$i+2))) ${combined_name[$((2*$i+1))]}"
 done
 
-read -n 1 station
+read -n 1 selection
 
-mplayer -playlist ${station_urls[$((${station}-1))]}
+if ((selection <= ${#station_urls[@]}))
+then
+    mplayer -playlist ${combined_urls[$((${selection}-1))]}
+else
+    mplayer ${combined_urls[$((${selection}-1))]}
+fi
