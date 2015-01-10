@@ -5,6 +5,7 @@
 backupdir=/home/evan/backup
 archivedir=/mnt/EXTERNAL/Backups
 
+mkdir backupdir
 tarname="$(date +%Y-%m-%d).tar.gz"
 tar czvf $tarname $backupdir
 mv $tarname $archivedir
