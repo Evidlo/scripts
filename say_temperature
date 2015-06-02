@@ -1,0 +1,21 @@
+#!/bin/bash
+message="It is currently $(date '+%l:%M%P'); "
+message+="The temperature is $(echo $(weather-util -i KLAF --headers=temperature)|grep -Poe "[0-9]+(?=\.[0-9] F)") degrees Fahrenheit."
+curr_vol0=$(amixer get 'DAC'|grep -Po "(?<=\[)[0-9]+")
+curr_vol1=$(amixer get 'DAC,1'|grep -Po "(?<=\[)[0-9]+")
+
+#set volume
+amixer -q set "DAC" 50%;amixer -q set "DAC,1" 50%
+
+if [ ! -z "$message" ]
+then
+	echo $message
+
+else
+	message="Temperature not available"
+fi
+
+echo $message|festival --tts
+
+#reset volume
+amixer -q set "DAC" ${curr_vol0}%;amixer -q set "DAC,1" ${curr_vol1}%
