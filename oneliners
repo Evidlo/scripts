@@ -1,0 +1,17 @@
+#a list of one liners that might be useful
+
+mplayer tv:// -tv driver=v4l2:width=640:height=480:device=/dev/video0 -fps 15 -vf screenshot -vo caca
+sh -c 'sleep 2.2 ; xinput --set-prop "TPPS/2 IBM TrackPoint" "Device Accel Velocity Scaling" 6.5'
+echo "doop"|espeak --stdout|play -t wav - bend 0,-4000,1
+
+
+smbclient -U your_user -L example.org
+sudo mount -t cifs -o username=your_user //host/share /mnt/mountpoint
+
+minicom -D /dev/ttyUSB -b 9600
+
+ldapsearch -h example.org -b dc=foo,dc=bar -x uid=evan
+env PULSE_LATENCY_MSEC=1 audacity
+script
+asciinema
+rpm -q --filebypkg bsd-games
