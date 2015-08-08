@@ -1,6 +1,7 @@
 setxkbmap -layout us
+setxkbmap -option compose:lwin
 xmodmap -e 'remove lock = Caps_Lock'
-# get keycode from `xev`
 xmodmap -e 'keycode 0x42 = Hyper_L'
 xmodmap -e 'remove mod4 = Hyper_L'
 xmodmap -e 'add mod3 = Hyper_L'
+xmodmap -e "keycode 133 = Multi_key"
