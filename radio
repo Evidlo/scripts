@@ -2,7 +2,7 @@
 station_name=("WBAA-AM" "WBAA-FM" "WUOT - Public Radio (Knoxville)" "WDVX - Bluegrass (Knoxville)" "WJEF")
 station_urls=("http://evanw.org:8000/wbaa-am.m3u" "http://evanw.org:8000/wbaa-fm.m3u" "http://evanw.org:8000/wuot.m3u" "http://nyc01.egihosting.com:8962/listen.pls" "http://majestic.wavestreamer.com:5337/listen.pls")
 file_name=("BBC World News")
-file_urls=("$(curl -s http://downloads.bbc.co.uk/podcasts/worldservice/newshour/rss.xml|grep -Po "http://[^:\"]+\.mp3"|head -1)")
+file_urls=($(curl -s "http://www.bbc.co.uk/programmes/p002vsnk/episodes/downloads.rss"|grep -Po 'http://[^:\"]+\.mp3'|head -1))
 
 combined_name=("${station_name[@]}" "${file_name[@]}")
 combined_urls=("${station_urls[@]}" "${file_urls[@]}")
@@ -26,9 +26,10 @@ done
 
 read -n 1 selection
 
+echo ${combined_urls[$((${selection}-1))]}
 if ((selection <= ${#station_urls[@]}))
 then
-    mplayer -playlist ${combined_urls[$((${selection}-1))]}
+    mpv --no-video -playlist ${combined_urls[$((${selection}-1))]}
 else
-    mplayer ${combined_urls[$((${selection}-1))]}
+    mpv --no-video ${combined_urls[$((${selection}-1))]}
 fi
