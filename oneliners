@@ -15,3 +15,8 @@ env PULSE_LATENCY_MSEC=1 audacity
 script
 asciinema
 rpm -q --filebypkg bsd-games
+
+#gpg encrypt decrypt
+gpg --import pubkeyfile
+gpg -e -r keyemail@address.com
+gpg encryptedfile
