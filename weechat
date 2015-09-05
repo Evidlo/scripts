@@ -1,0 +1,19 @@
+#!/usr/bin/expect
+# Evan Widloski - 2015-09-4
+# `expect` script to login to webserver and start attach to weechat screen
+trap {
+ set rows [stty rows]
+ set cols [stty columns]
+ stty rows $rows columns $cols < $spawn_out(slave,name)
+} WINCH
+
+stty -echo
+spawn ssh evanw.org
+expect "Enter passphrase for key*"
+expect_user -re "(.*)\n"
+set pass $expect_out(1,string)
+send -- "$pass\r"
+stty echo
+expect "\[evan*"
+send -- "screen -d -R -S weechat /srv/www/weechat-1.3/build/src/gui/curses/weechat-curses\r"
+interact
