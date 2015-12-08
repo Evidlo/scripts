@@ -1,0 +1,12 @@
+\ProvidesPackage{evidlo}[2015-12-08 Evidlo's Latex Macros]
+
+% Image Figure Shorthand
+% \image{filename}{caption}{label}{size_cm}
+\newcommand{\image}[4]{
+\begin{figure}
+    \centering
+    \includegraphics[width=#4cm]{#1}
+    \caption{#2}
+    \label{#3}
+\end{figure}
+}
