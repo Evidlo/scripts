@@ -1,9 +1,17 @@
+#!/bin/bash
+#Evan Widloski - 2015-12-11
+#Keyboard Settings
+
+#reset keyboard
 setxkbmap -layout us
+#set left window key to compose key
 setxkbmap -option compose:lwin
+#set caps_lock to mod3
 xmodmap -e 'remove lock = Caps_Lock'
 xmodmap -e 'keycode 0x42 = Hyper_L'
 xmodmap -e 'remove mod4 = Hyper_L'
 xmodmap -e 'add mod3 = Hyper_L'
+#enable right ctrl as multikey
 xmodmap -e "keycode 133 = Multi_key"
 
 #set keyboard repeat rate
