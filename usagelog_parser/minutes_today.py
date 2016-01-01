@@ -14,19 +14,23 @@ with open(sys.argv[1],'r') as f:
 
 sum = 0
 for line in data:
+    #could this possibly be a valid entry?
     if len(line) >= 1:
         topen = datetime.strptime(line[0],'%Y-%m-%d_%H:%M')
-
-    if topen.date() == datetime.now().date():
+        #if there's 2, get topen and tclose
         if len(line) >= 2:
             tclose = datetime.strptime(line[1],'%Y-%m-%d_%H:%M')
+        #if it's the last line in the log, set tclose to now
+        elif line == data[-1]:
+            tclose = datetime.now()
+
+        #check that either topen or tclose is today 
+        #if topen not today, set topen to midnight
+        if tclose.date() == datetime.now().date():
+            if topen.date() != datetime.now().date():
+                topen = datetime.now().replace(hour=0, minute=0, second=0, microsecond=0)
 
             tdiff = tclose - topen
-            mins = tdiff.seconds / 60 #how many minutes lid was open
-            sum += mins
-
-        elif line == data[-1]:
-            tdiff = datetime.now() - topen
             mins = tdiff.seconds / 60 #how many minutes lid was open
             sum += mins
 
