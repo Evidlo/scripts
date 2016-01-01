@@ -22,4 +22,5 @@ END{
 '< filter.txt)
 
 
-eval "rsync -athvrpgoD -e ssh $exclude_args / evan@p.evanw.org:/home/evan/backup"
+# eval "rsync --dry-run -athvrpgoD -e ssh $exclude_args / evan@p.evanw.org:/home/evan/backup"
+eval "rsync -athvrpgoD $exclude_args / /home/evan/backup"
