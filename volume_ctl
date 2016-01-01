@@ -1,16 +1,12 @@
-#!/bin/bash
-#Evan Widloski 2014
-#simple alsa vol ctrl script
+#!/bin/sh
 
-if [ $1 = "up" ]
-		then
-		curr_vol=$(amixer get 'DAC,1'|grep -Po "(?<=\[)[0-9]+")
-		if [ $curr_vol = "0" ]
-				then
-				amixer set "DAC" 5%;amixer set "DAC,1" 5%
-				else
-				amixer set "DAC" 2.1+;amixer set "DAC,1" 2.1+
-		fi
-		else
-		amixer set "DAC" 2.1-;amixer set DAC,1 2.1-
+if [ $1 = 'up' ]; then
+    pactl set-sink-volume 0 +10%
+elif [ $1 = 'down' ]; then
+    pactl set-sink-volume 0 -10%
+elif [ $1 = 'mute' ]; then
+    pactl set-sink-mute 0 toggle
+else
+    echo "Unknown control command: $1" >&2
+    exit 1
 fi
