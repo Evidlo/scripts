@@ -33,10 +33,7 @@ echo ${combined_urls[$((${selection}-1))]}
 if ((selection <= ${#station_urls[@]}))
 then
     # mpv --no-video -playlist ${combined_urls[$((${selection}-1))]}
-    sex mpv ${combined_urls[$((${selection}-1))]}
+    mpv --no-video ${combined_urls[$((${selection}-1))]}
 else
-    sex mpv ${combined_urls[$((${selection}-1))]}
+    mpv --no-video ${combined_urls[$((${selection}-1))]}
 fi
-
-#close the term
-kill -9 $PPID
