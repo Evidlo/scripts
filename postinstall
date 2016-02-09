@@ -1,0 +1,4 @@
+#A list of packages to install after OS installation
+
+#fedora
+dnf install vim man htop ncdu tar zip
