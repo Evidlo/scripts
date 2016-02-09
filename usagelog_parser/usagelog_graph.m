@@ -26,7 +26,7 @@ function mins3(file)
 
 	mins_avg = [];
 	%rolling average window size
-	window = 1;
+	window = 21;
 	%calculate rolling average
 	for i = 1:size(mins)(1)-window
 		mins_avg = [mins_avg;mean(mins(i:i+window,:))];
@@ -34,7 +34,8 @@ function mins3(file)
 	xx = 1:size(mins_avg)(2);
 	yy = 1:size(mins_avg)(1);
 
-	surf(xx,yy,mins_avg);
+	h=surf(xx,yy,mins_avg);
+  set(h, 'edgecolor','none')
 	title("Evan's Laptop Usage\n (rolling average)");
 	axis([0 length(xx) 0 length(yy) 0 length(mins)]);
 	xlabel('Hour of day');
@@ -46,6 +47,7 @@ function mins3(file)
 	set(gca,'XTick',0:5:23)
 	set(gca,'FontSize',6);
 	print -dpng "-S640,720" laptopusage.png -F:6
+  print -dpdfwrite -color laptopusage.pdf
 endfunction
 
 function days(file)
