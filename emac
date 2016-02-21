@@ -1,0 +1,6 @@
+#!/bin/bash
+#Run emacsclient graphically
+
+#start emacs daemon if not already running
+export ALTERNATE_EDITOR=""
+emacsclient -c
