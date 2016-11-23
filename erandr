@@ -1,0 +1,40 @@
+#!/bin/bash
+## Erandr - Evan's RandR
+## some xrandr configurations
+
+## main display name
+primary="LVDS1"
+## secondary display name
+secondary="VGA1"
+
+## rotate `secondary` for vertical screens
+if [[ $* == *vert* ]]
+then
+    rotate=left
+else
+    rotate=normal
+fi
+
+## place `secondary` to the right of `primary`
+if [[ $* == *right* ]]
+then
+    xrandr --output $primary --output $secondary --auto --right-of $primary --rotate $rotate 
+fi
+
+## place `secondary` to the left of `primary`
+if [[ $* == *left* ]]
+then
+    xrandr --output $primary --output $secondary --auto --left-of $primary --rotate $rotate 
+fi
+
+## reset and go back to single monitor
+if [[ $* == *single* ]]
+then
+    xrandr --output $primary --rotate $rotate --output $secondary --off
+fi
+
+## turn off `primary` and turn on `secondary`
+if [[ $* == *movie* ]]
+then
+    xrandr --output $primary --off --output $secondary --off --rotate $rotate 
+fi
