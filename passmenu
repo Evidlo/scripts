@@ -1,13 +1,36 @@
 #!/usr/bin/env bash
+## Evan Widloski - 2016-01-05
+## Based on the passmenu script
+
+# Usage:
+# passmenu                      : copy first line of password file to clipboard
+# passmenu --type               : type out first line of password file
+# passmenu --type --tabbed      : type out second line of password file (username)
+#                                   followed by first line (password),
+#                                   separated by tab
+
 
 PASSWORD_STORE_CLIP_TIME=15
 shopt -s nullglob globstar
 
-typeit=0
-if [[ $1 == "--type" ]]; then
-	typeit=1
-	shift
-fi
+echo $type_arg
+for arg in "$@"
+do
+    case $arg in
+        --type)
+            type_arg=1
+            shift
+            ;;
+        --tabbed)
+            tabbed_arg=1
+            shift
+            ;;
+        *)
+            shift
+            ;;
+    esac
+    shift
+done
 
 prefix=${PASSWORD_STORE_DIR-~/.password-store}
 password_files=( "$prefix"/**/*.gpg )
@@ -18,9 +41,18 @@ password=$(printf '%s\n' "${password_files[@]}" | dmenu "$@")
 
 [[ -n $password ]] || exit
 
-if [[ $typeit -eq 0 ]]; then
-	pass show -c "$password" 2>/dev/null
+if [[ $type_arg == 1 ]]; then
+    result="$(pass show ""$password"")"
+
+    # if `--tabbed` is provided, type out user and pass, separated by tab
+    if [[ $tabbed_arg == 1 ]]; then
+        result="$(awk 'NR == 2' <<< "$result")	$(awk 'NR == 1' <<< "$result")"
+    # otherwise, just type out password
+    else
+        result="$(awk 'NR == 1' <<< "$result")"
+    fi
+
+    printf %s "$result" | xdotool type --clearmodifiers --file -
 else
-	pass show "$password" | { read -r pass; printf %s "$pass"; } |
-		xdotool type --clearmodifiers --file -
+	  pass show -c "$password" 2>/dev/null
 fi

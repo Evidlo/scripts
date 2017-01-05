@@ -9,6 +9,7 @@ trap {
 
 stty -echo
 spawn ssh -p 10022 evan@diode.pieee.org
+# spawn ssh evan@epics.evanw.org
 expect "Enter passphrase for key*"
 expect_user -re "(.*)\n"
 set pass $expect_out(1,string)
