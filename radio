@@ -2,29 +2,30 @@
 station_name=("WBAA-AM" "WBAA-FM" "WUOT - Public Radio (Knoxville)" "WDVX - Bluegrass (Knoxville)" "WJEF")
 station_urls=("http://evanw.org:8000/wbaa-am.m3u" "http://evanw.org:8000/wbaa-fm.m3u" "http://evanw.org:8000/wuot.m3u" "http://nyc01.egihosting.com:8962/listen.pls" "http://majestic.wavestreamer.com:5337/listen.pls")
 file_name=("BBC World News" "BBC Science in Action" "BBC Tech Tent" "BBC News Podcast")
-file_urls=($(curl -s "http://www.bbc.co.uk/programmes/p002vsnk/episodes/downloads.rss"|grep -Po 'http://[^:\"]+\.mp3'|head -1)
-           $(curl -s "http://www.bbc.co.uk/programmes/p002vsnb/episodes/downloads.rss"|grep -Po 'http://[^:\"]+\.mp3'|head -1)
-           $(curl -s "http://www.bbc.co.uk/programmes/p01plr2p/episodes/downloads.rss"|grep -Po 'http://[^:\"]+\.mp3'|head -1)
-           $(curl -s "http://www.bbc.co.uk/programmes/p02nq0gn/episodes/downloads.rss"|grep -Po 'http://[^:\"]+\.mp3'|head -1))
+file_urls=($(curl -s "https://podcasts.files.bbci.co.uk/p002vsnk.rss" |grep -Po 'http://[^:\"]+\.mp3'|head -1)
+           $(curl -s "https://podcasts.files.bbci.co.uk/p002vsnb.rss" |grep -Po 'http://[^:\"]+\.mp3'|head -1)
+           $(curl -s "https://podcasts.files.bbci.co.uk/p01plr2p.rss"|grep -Po 'http://[^:\"]+\.mp3'|head -1)
+           $(curl -s "https://podcasts.files.bbci.co.uk/p02nq0gn.rss"|grep -Po 'http://[^:\"]+\.mp3'|head -1))
 
-combined_name=("${station_name[@]}" "${file_name[@]}")
-combined_urls=("${station_urls[@]}" "${file_urls[@]}")
+names=("${station_name[@]}" "${file_name[@]}")
+urls=("${station_urls[@]}" "${file_urls[@]}")
 
 printf "Selection a station:\n"
 
-#find biggest string
+# find biggest string
 max=0
 IFS=""
 for i in ${combined_name[@]}
 do
-	if [ "${#i}" -gt "$max" ]
-	then
-		max=${#i}
-	fi
+    if [ "${#i}" -gt "$max" ]
+    then
+        max=${#i}
+    fi
 done
 for((i=0;i<$((${#combined_name[@]}-(${#combined_name[@]}/2)));i++))
 do
-	printf "%-$((10+$max))s %-$((10+$max))s\n" "$((2*$i+1))) ${combined_name[$((2*$i))]}" "$((2*$i+2))) ${combined_name[$((2*$i+1))]}"
+    # print out options in two columns
+    printf "%-$((10+$max))s %-$((10+$max))s\n" "$((2*$i+1))) ${combined_name[$((2*$i))]}" "$((2*$i+2))) ${combined_name[$((2*$i+1))]}"
 done
 
 read -n 1 selection
