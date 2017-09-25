@@ -29,7 +29,9 @@ ix() {
         }
         echo "^C to cancel, ^D to send."
     }
-    curl $opts -F f:1='<-' $* ix.io/$id
+    url=$(curl -s $opts -F f:1='<-' $* ix.io/$id)
+    echo "$url"
+    xsel -i -p <<< "$url"
 }
 
 ix $*

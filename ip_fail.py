@@ -1,7 +1,9 @@
 #!/bin/env python3
 ## Evan Widloski - 2017-08-31
 ## SSH Failed login stats
-# journalctl -u sshd | grep "[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}" > /tmp/fail_ip
+# journalctl -u sshd | grep -Po "[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}" > /tmp/fail_ip
+
+# pip install python-geoip python-geoip-geolite2
 
 from collections import Counter
 from geoip import geolite2
