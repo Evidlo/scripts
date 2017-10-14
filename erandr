@@ -5,13 +5,14 @@
 
 # try load displays from config
 if [ -f ~/.erandr ]
-   source ~/.erandr
+then
+    source ~/.erandr
 # otherwise, use defaults
 else
-    ## main display name
-    primary="LVDS1"
-    ## secondary display name
-    secondary="VGA1"
+     ## main display name
+     primary="LVDS1"
+     ## secondary display name
+     secondary="VGA1"
 fi
 
 ## rotate `secondary` for vertical screens
