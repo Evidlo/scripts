@@ -29,6 +29,8 @@ else
      primary=$(xrandr | awk '/ connected primary/{print $1}')
      ## secondary display name
      secondary=$(xrandr | awk '/ connected primary/{next}/ connected/{print $1;exit}')
+     ## disconnected, but enabled displays
+     disconnected=$(xrandr | awk '/ disconnected [0-9]+x[0-9]+/{print $1}')
 fi
 
 ## rotate `secondary` for vertical screens
@@ -54,11 +56,17 @@ fi
 ## reset and go back to single monitor
 if [[ $* == *single* ]]
 then
-    xrandr --output $primary --auto --rotate $rotate --output $secondary --off
+    for display in $disconnected
+    do
+        xrandr --output $display --off
+    done
+    xrandr --output $secondary --auto --off
+
+    xrandr --output $primary --auto --primary --rotate $rotate
 fi
 
 ## turn off `primary` and turn on `secondary`
 if [[ $* == *movie* ]]
 then
-    xrandr --output $primary --off --output $secondary --auto --rotate $rotate
+    xrandr --auto --output $primary --off --output $secondary --rotate $rotate
 fi

@@ -1,6 +1,6 @@
 #!/bin/bash
-station_name=("WBAA-AM" "WBAA-FM" "WUOT - Public Radio (Knoxville)" "WDVX - Bluegrass (Knoxville)" "WJEF")
-station_urls=("http://evanw.org:8000/wbaa-am.m3u" "http://evanw.org:8000/wbaa-fm.m3u" "http://evanw.org:8000/wuot.m3u" "http://nyc01.egihosting.com:8962/listen.pls" "http://majestic.wavestreamer.com:5337/listen.pls")
+station_name=("WBAA-AM" "WBAA-FM" "WBAA-Jazz" "WUOT - Public Radio (Knoxville)" "WDVX - Bluegrass (Knoxville)" "WJEF")
+station_urls=("http://evanw.org:8000/wbaa-am.m3u" "http://evanw.org:8000/wbaa-fm.m3u" "http://purdue.streamguys1.com/wbaa-jazz" "http://evanw.org:8000/wuot.m3u" "http://wdvx.stream.egihosting.com:8000/?type=http&nocache=53430" "http://majestic.wavestreamer.com:5337/listen.pls")
 file_name=("BBC World News" "BBC Science in Action" "BBC Tech Tent" "BBC News Podcast")
 file_urls=($(curl -s "https://podcasts.files.bbci.co.uk/p002vsnk.rss" |grep -Po 'http://[^:\"]+\.mp3'|head -1)
            $(curl -s "https://podcasts.files.bbci.co.uk/p002vsnb.rss" |grep -Po 'http://[^:\"]+\.mp3'|head -1)
