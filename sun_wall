@@ -1,0 +1,25 @@
+#!/bin/bash
+# Evan Widloski - 2015-11-02 - sun_wall
+#
+
+#grab the time of the most recent sun image
+# timestamp=`curl -s 'http://umbra.nascom.nasa.gov/images/' | \
+#            /home/evan/bin/pup 'tr[align="center"]:nth-of-type(7) td:nth-of-type(1) text{}'`
+#convert to EST
+# timestamp=`date --date="TZ=\"UTC\" $timestamp"`
+
+
+# sun='http://umbra.nascom.nasa.gov/images/latest_aia_304.gif' #red
+# sun='http://umbra.nascom.nasa.gov/images/latest_aia_171.gif' #blue
+
+sun='http://sdo.gsfc.nasa.gov/assets/img/latest/latest_2048_0304.jpg' #red hd
+
+# convert -fill red -font 'Terminus-(TTF)' -pointsize 30 -draw "text 15,50 \"$timestamp\"" \
+#         "$sun" \
+#         /tmp/wall.gif
+
+wget $sun -O /home/evan/.cache/redrum_image
+feh --bg-max /home/evan/.cache/redrum_image
+
+
+# feh --bg-fill "$(shuf -n 1 ~/pictures/nasalist)"
