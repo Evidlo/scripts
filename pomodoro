@@ -1,0 +1,51 @@
+#!/bin/bash
+# Evan Widloski - 2019-08-12
+# Pomodoro script for i3
+
+cleanup(){
+    if [ -f /tmp/statusline_evidlo ]
+    then
+       rm /tmp/statusline_evidlo
+    fi
+    exit
+}
+trap cleanup INT
+
+# work minutes
+if [ -z $1 ]
+then
+    w_minutes=25
+else
+    w_minutes=$1
+fi
+
+# break minutes
+if [ -z $2 ]
+then
+    b_minutes=5
+else
+    b_minutes=$1
+fi
+
+while true
+do
+    zenity --info --width=300 --height=300 --timeout 5 --title="Pomodoro" --text="Begin working" &
+    for minute in $(seq $((w_minutes - 1)) -1 0)
+    do
+        for second in $(seq 59 -1 0)
+        do
+            printf "{\"name\":\"\",\"color\":\"#ff0000\",\"full_text\":\"%s\"}," "$minute:$second" > /tmp/statusline_evidlo
+            sleep 1
+        done
+    done
+    zenity --info --width=300 --height=300 --title="Pomodoro" --text="Begin break" &
+    for minute in $(seq $((b_minutes - 1)) -1 0)
+    do
+        for second in $(seq 59 -1 0)
+        do
+            printf "{\"name\":\"\",\"color\":\"#00ff00\",\"full_text\":\"%s\"}," "$minute:$second" > /tmp/statusline_evidlo
+            sleep 1
+        done
+    done
+done
+
