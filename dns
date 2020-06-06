@@ -1,0 +1,3 @@
+#!/bin/bash
+
+sh -c "curl \"https://dynamicdns.park-your-domain.com/update?host=foobar&domain=example.com&password=password&ip=$(ip -f inet addr show wlp3s0 | awk '/inet / {match($2,"[^/]+",a);print a[0]}')\""
