@@ -1,0 +1,16 @@
+#!/bin/bash
+printf "$(date "+%Y-%m-%d_%H:%M")\n" >> /home/evan/logs/usage.log
+
+# lid_state=$(cat /proc/acpi/button/lid/LID/state|awk '{print $2}')
+# if [ "$lid_state" = "closed" ]
+# then
+#   ## force unmount sshfs mounts
+#   sshfs_mounts=$(mount -t fuse.sshfs | grep -Po "(?<=on\s)\S+(?\stype)")
+#   for mount in $sshfs_mounts
+#   do
+#       umount $mount -l
+#       umount $mount -f
+#   done
+
+# 	pm-suspend
+# fi
