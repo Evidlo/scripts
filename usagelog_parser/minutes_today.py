@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 
 """
 Evan Widloski - 2015-10-28 - minutes_today
@@ -34,4 +34,4 @@ for line in data:
             mins = tdiff.seconds / 60 #how many minutes lid was open
             sum += mins
 
-print "{0} hours, {1} minutes".format(sum / 60, sum % 60)
+print("{0:.0f} hours, {1:.0f} minutes".format(sum / 60, sum % 60))
