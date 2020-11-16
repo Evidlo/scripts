@@ -3,6 +3,20 @@
 %Evan Widloski - 2014-06-28
 
 
+function usagelog_graph()
+  args = argv();
+  file = args{2};
+  if strcmp(args{1},'mins')
+    mins(file)
+  endif
+  if strcmp(args{1},'mins3')
+    mins3(file)
+  endif
+  if strcmp(args{1},'days')
+    days(file)
+  endif
+endfunction
+
 function mins(file)
 	hours = [0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23];
 	mins = dlmread(file,'\t');
@@ -54,23 +68,9 @@ function days(file)
 	format={' r',' y','g','c','b','m','k'}
 	data = dlmread(file,' ')(:,1:24)
 	hour = 1:24;
-	length(data)
-	length(hour)
+    size(hour)
+    size(data)
 	plot(hour,data,format)
 	legend('sunday','monday','tuesday','wednesday','thursday','friday','saturday')
 	print -dpng "-S640,720" laptopusage.png -F:6
 endfunction
-	
-	
-
-args = argv();
-file = args{2};
-if strcmp(args{1},'mins')
-	mins(file)
-endif
-if strcmp(args{1},'mins3')
-	mins3(file)
-endif
-if strcmp(args{1},'days')
-	days(file)
-endif
