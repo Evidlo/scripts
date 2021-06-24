@@ -1,3 +1,17 @@
 #!/bin/bash
 
-sh -c "curl \"https://dynamicdns.park-your-domain.com/update?host=foobar&domain=example.com&password=password&ip=$(ip -f inet addr show wlp3s0 | awk '/inet / {match($2,"[^/]+",a);print a[0]}')\""
+password=
+subdomain=blackbox
+domain=evanw.org
+
+# get current interface
+interface=$(ip route | awk '/default/{print $5;exit}')
+# get address
+address=$(ip -f inet addr show ${interface} | awk '/inet / {match($2,"[^/]+",a);print a[0]}')
+# alternatively use ifconfig.me
+# address=$(curl ifconfig.me)
+
+# namecheap
+url="https://dynamicdns.park-your-domain.com/update?host=${subdomain}&domain=${domain}&password=${password}&ip=${address}"
+
+curl "${url}"
