@@ -1,0 +1,33 @@
+#!/bin/bash
+# Evan Widloski - 2021-03-22
+# Send whitespace if no stdin
+#
+# Install package 's-nail' before using
+#
+# Usage:
+#     mailme [netid]@illinois.edu "subject goes here"
+#
+#     echo "message body" | mailme [netid]@illinois.edu "subject here"
+#
+# Python usage:
+#    from subprocess import run
+#    message_body = "Message content"
+#    run(['mailme', 'evanw3@illinois.edu', 'Task is Complete'], input=message_body.encode('utf8'))
+
+to=${1}
+subj=${2}
+
+# default subject
+if [ -z "${subj}" ]
+then
+    subj="Job Complete"
+fi
+
+echo "Sending mail to ${to}"
+echo "with subject ${subj}"
+if test -t 0
+then
+    echo "Done" | s-nail -S smtp=outbound-relays.techservices.illinois.edu -s "${subj}" -r tikhonov@csl.illinois.edu "${to}"
+else
+    s-nail -S smtp=outbound-relays.techservices.illinois.edu -s "${subj}" -r tikhonov@csl.illinois.edu "${to}"
+fi
