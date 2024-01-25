@@ -16,7 +16,10 @@ sum = 0
 for line in data:
     #could this possibly be a valid entry?
     if len(line) >= 1:
-        topen = datetime.strptime(line[0],'%Y-%m-%d_%H:%M')
+        try:
+            topen = datetime.strptime(line[0],'%Y-%m-%d_%H:%M')
+        except ValueError:
+            continue
         #if there's 2, get topen and tclose
         if len(line) >= 2:
             tclose = datetime.strptime(line[1],'%Y-%m-%d_%H:%M')
