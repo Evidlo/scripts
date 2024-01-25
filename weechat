@@ -8,12 +8,12 @@ trap {
 } WINCH
 
 stty -echo
-spawn mosh evan@epics.evanw.org
+spawn ssh evan@tikhonov.csl.illinois.edu
 expect "Enter passphrase for key*"
 expect_user -re "(.*)\n"
 set pass $expect_out(1,string)
 send -- "$pass\r"
 stty echo
-expect "\[evan*"
-send -- "screen -T screen-256color -DR weechat /home/evan/resources/weechat/install/bin/weechat\r"
+expect "*\[evan*"
+send -- "screen -T screen-256color -DR weechat /usr/bin/weechat\r"
 interact
