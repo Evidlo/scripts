@@ -3,8 +3,8 @@ Description=Grab wallpapers from NASA after network
 After=suspend.target
 
 [Service]
-Environment="DISPLAY=:0"
-ExecStart=/home/evan/bin/sun_wall
+Environment="DISPLAY=:1"
+ExecStart=/home/evan/resources/scripts/sun_wall
 
 [Install]
 WantedBy=suspend.target
