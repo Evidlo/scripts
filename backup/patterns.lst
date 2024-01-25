@@ -1,0 +1,25 @@
++ /etc/**
+- /sys/
+
+# home folders
+- /home/evan/downloads
+- /home/evan/public
+- /home/evan/.cache
+- /home/evan/.local
+- /home/evan/pictures
+- /home/evan/resources
+
+# applications
+- /home/evan/.mozilla
+- /home/evan/.emacs.d
+- /home/evan/.minecraft
+- /home/evan/.opera
+- /home/evan/.adobe
+- /home/evan/.git
+- /home/evan/.ccache
+- /home/evan/.eagle
+- /home/evan/.arduino**
+- /home/evan/.wine
+
+# system directories
+- /mnt
