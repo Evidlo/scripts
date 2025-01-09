@@ -19,7 +19,7 @@ sun='http://sdo.gsfc.nasa.gov/assets/img/latest/latest_2048_0304.jpg' #red hd
 #         /tmp/wall.gif
 
 wget $sun -O ~/.cache/redrum_image
-DISPLAY=:1 feh --bg-max ~/.cache/redrum_image
+feh --bg-max ~/.cache/redrum_image
 
 
 # feh --bg-fill "$(shuf -n 1 ~/pictures/nasalist)"
