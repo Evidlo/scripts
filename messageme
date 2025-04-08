@@ -1,0 +1,17 @@
+# Evan Widloski - 2020-09-15
+# Matrix Notification Script
+# dependencies: curl, jq
+# ~/.local/messageme.conf should contain 3
+#   lines with bot username, bot pass, and recipient username
+# usage: messageme [message]
+# usage: echo foobar | messageme
+
+IFS=$'\n' read -d '' user pass dest < ~/.local/messageme.conf
+
+echo $user $pass
+
+token=$(curl -XPOST -d "{\"type\":\"m.login.password\", \"user\":\"${user}\", \"password\":\"${pass}\"}" "https://matrix.org/_matrix/client/r0/login" | jq -r '.access_token')
+
+# echo $token
+
+

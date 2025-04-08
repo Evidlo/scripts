@@ -4,7 +4,7 @@ After=suspend.target
 
 [Service]
 Environment="DISPLAY=:0"
-ExecStart=/home/evan/bin/sun_wall
+ExecStart=/home/evan/resources/scripts/sun_wall
 
 [Install]
 WantedBy=suspend.target

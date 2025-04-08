@@ -1,0 +1,51 @@
+# config
+- /home/evan/.config/emacs/
++ /home/evan/.config
+
+# home folders
+- /home/evan/android
+- /home/evan/downloads
+- /home/evan/go
+- /home/evan/mnt
+- /home/evan/pictures
+- /home/evan/resources
+- /home/evan/tmp
+- /home/evan/public
+- /home/evan/.cache
+- /home/evan/.local
+
+# applications
+- /home/evan/.**
+- /home/evan/AltiumLL
+- /home/evan/AndroidStudio**
+- /home/evan/.adobe
+- /home/evan/.android
+- /home/evan/.aqemu
+- /home/evan/.arduino15/
+- /home/evan/.arduino**/
+- /home/evan/.astropy
+- /home/evan/.bpkg
+- /home/evan/.cabal
+- /home/evan/.cargo
+- /home/evan/.ccache
+- /home/evan/.eagle
+- /home/evan/.emacs.d
+- /home/evan/.git
+- /home/evan/Klei
+- /home/evan/.minecraft
+- /home/evan/.mozilla
+- /home/evan/.opera
+- /home/evan/PlayOnLinux**
+- /home/evan/VirtualBox**
+- /home/evan/.wine
+
+# system directories
++ /home/evan/**
+- /mnt/**
++ /etc/**
+- /sys/**
+
+- /sys/**
+- /run/**
+- /sys/
+- /run/

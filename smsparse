@@ -1,0 +1,17 @@
+#!/bin/env python3
+
+import sys
+from lxml import etree
+
+# map type to string
+typemap = {
+    '1': 'recv',
+    '2': 'sent',
+}
+
+for line in sys.stdin:
+    line = line.lstrip()
+    if line.startswith('<sms'):
+        # parse sms xml
+        s = etree.fromstring(line)
+        print(f"({s.attrib['readable_date'].ljust(24)}) {typemap[s.attrib['type']]}: {s.attrib['body']}")

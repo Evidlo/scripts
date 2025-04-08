@@ -13,8 +13,9 @@
 # xmodmap -e 'add mod3 = Hyper_L'
 #enable right ctrl as multikey
 # xmodmap -e "keycode 105 = Multi_key"
+#xmodmap -e "keycode 108 = Alt_L"
 
 #set keyboard repeat rate
 # xset r rate 200 20
 
-setxkbmap -layout us -option caps:super,compose:lwin
+ setxkbmap -layout us -option caps:super,compose:lwin,compose:ralt,keypad:pointerkeys

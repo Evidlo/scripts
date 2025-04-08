@@ -2,7 +2,8 @@
 printf "$(date "+%Y-%m-%d_%H:%M") " >> /home/evan/logs/usage.log
 
 filename=$(date "+%Y-%m-%d_%H:%M").jpg
-fswebcam -r 360x270 --jpeg 85 -D 2 /home/evan/.cam/$filename
+fswebcam -r 640x480 --jpeg 85 -D 2 /home/evan/.cam/$filename
+kb_mouse
 # chown evan /home/evan/.cam/$filename
 
 # batt_state=$(echo $(acpi -b)|awk '{print $3}')
