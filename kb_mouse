@@ -18,4 +18,4 @@
 #set keyboard repeat rate
 # xset r rate 200 20
 
- setxkbmap -layout us -option caps:super,compose:lwin,compose:ralt,keypad:pointerkeys
+setxkbmap -layout us -option caps:super,compose:lwin,compose:ralt,keypad:pointerkeys
