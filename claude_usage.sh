@@ -1,6 +1,6 @@
 #!/bin/env bash
 
-response=$(./secret_claude_fetch_usage.sh)
+response=$($(dirname $(readlink -f "$0"))/secret_claude_fetch_usage.sh)
 
 percent=$(jq --join-output '.["five_hour"]["utilization"]' <<< "${response}")
 
