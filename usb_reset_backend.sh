@@ -26,3 +26,5 @@ do
     echo "  done."
 done
 echo "done."
+
+sleep 2

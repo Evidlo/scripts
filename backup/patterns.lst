@@ -1,14 +1,26 @@
+# camera
++ /home/evan/.cam
+
+# home dotfiles
++ /home/evan/.*
+
 # config
 - /home/evan/.config/emacs/
+- /home/evan/.config/google-chrome
+- /home/evan/.config/syncthing/.**.db
 + /home/evan/.config
 
 # home folders
 - /home/evan/android
++ /home/evan/documents
 - /home/evan/downloads
 - /home/evan/go
 - /home/evan/mnt
-- /home/evan/pictures
++ /home/evan/pictures
 - /home/evan/resources
++ /home/evan/research
+- **/glide-sdc/**
+- /home/evan/syncthing
 - /home/evan/tmp
 - /home/evan/public
 - /home/evan/.cache
@@ -19,27 +31,37 @@
 - /home/evan/AltiumLL
 - /home/evan/AndroidStudio**
 - /home/evan/.adobe
+- /home/evan/android
 - /home/evan/.android
 - /home/evan/.aqemu
 - /home/evan/.arduino15/
 - /home/evan/.arduino**/
 - /home/evan/.astropy
+- /home/evan/.buildozer
 - /home/evan/.bpkg
 - /home/evan/.cabal
 - /home/evan/.cargo
 - /home/evan/.ccache
+- /home/evan/cd
+- /home/evan/dropbox
 - /home/evan/.eagle
 - /home/evan/.emacs.d
 - /home/evan/.git
+- /home/evan/.googleearth
 - /home/evan/Klei
 - /home/evan/.minecraft
-- /home/evan/.mozilla
+- /home/evan/.mozilla/**/storage
+- /home/evan/.mozilla/**/extensions
+- /home/evan/.ollama
 - /home/evan/.opera
 - /home/evan/PlayOnLinux**
 - /home/evan/VirtualBox**
+- /home/evan/.var
 - /home/evan/.wine
+- /home/evan/.wine32
 
 # system directories
+- /home/
 + /home/evan/**
 - /mnt/**
 + /etc/**

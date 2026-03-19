@@ -3,22 +3,6 @@
 QUERY="$@"
 [ -z "$QUERY" ] && exit 0
 
-FULL_QUERY="Answer in as little words as possible, with no additional delimiting punctuation: $QUERY"
+FULL_QUERY="Answer in as little words as possible, with no additional delimiting punctuation.  Do not ask clarifying questions.  Print your answer and do not write to file.  Assume language is bash unless specified otherwise: $QUERY"
 
-post_data() {
-cat <<EOF
-    {"messages": [{
-        "role": "user",
-        "content": "$FULL_QUERY"
-        }]
-    }
-EOF
-}
-
-RAW_RESPONSE=$(curl -s ch.at/v1/chat/completions --data "$(post_data)")
-RESPONSE=$(jq --raw-output '.choices[0].message.content' <<< "$RAW_RESPONSE")
-
-# Output to Raycast echo "$RESPONSE"
-
-# --- Optional: also pop up a big dialog ---
-echo "$RESPONSE"
+claude -p --model haiku  "${FULL_QUERY}"
